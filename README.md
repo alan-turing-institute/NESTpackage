@@ -1,6 +1,6 @@
 # NEST
 
-The NEtwork Statistic (**NEST**) generation package is designed to give a quick
+The NEtwork STatistic (**NEST**) package is designed to give a quick
 and easy way to produce in depth initial exploratory analysis of a network
 dataset.
 
