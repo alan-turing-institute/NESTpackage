@@ -57,18 +57,23 @@ the recommended route if you wish to add additional statistics.
 
 ### Requirements
 
-The following packages are required for NEST:
-
+Required:
   - matplotlib
   - networkx
   - numpy
   - pandas
-  - python-louvain
-  - reportlab
   - scipy
   - seaborn
-  - motifcluster
   - scikit-learn
+
+The package also requires at least one of the following:
+  - pandoc
+  - reportlab
+
+
+Finally, the following packages are optional and are needed for some statistics:
+  - motifcluster
+  - python-louvain
 
  
 ## Usage

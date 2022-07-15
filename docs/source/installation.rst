@@ -1,8 +1,9 @@
 Installation
 ============
 
-The most direct way to install the package to use it directly is to install it via pip.
-For now it can be directly installed from github, and in future it will be available on directly on PyPI
+The most direct way to install the package to use it directly is to install it
+via pip. For now it can be directly installed from github, and in future it
+will be available on directly on PyPI
 
 .. code-block:: bash 
 
