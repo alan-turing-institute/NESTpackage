@@ -21,7 +21,7 @@ document in numerous formats, namely:
 - Html
 - Others to follow
 
-The outputs are designed to allow a reseacher/data scientist to quickly
+The outputs are designed to allow a researcher/data scientist to quickly
 evaluate a dataset, or to share crucial statistics of a dataset with
 others.
 
