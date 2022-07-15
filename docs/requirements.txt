@@ -1,0 +1,12 @@
+matplotlib 
+motifcluster
+networkx 
+numpy 
+pandas
+pandoc
+python-louvain 
+reportlab
+scikit-learn
+scipy 
+seaborn 
+statsmodels 
