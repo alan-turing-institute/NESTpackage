@@ -2,18 +2,6 @@
 requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
-[metadata]
-name = "nest"
-description = "The NEtwork Statistic (**NEST**) generation package is designed to give a quick and easy way to produce in depth initial exploratory analysis of a network dataset."
-version = "0.9"
-authors = [{name = 'Andrew Elliott'}, {name = 'Stratis Limnios'}, {name = 'Mihai Cucuringu'}, {name = 'Gesine Reinert'}]
-
-readme = "README.md"
-python = "^3.6"
-
-keywords = ["network", "statistics", "report", "time series"]
-
-[proect]
 dependencies = ["matplotlib",
               "networkx",
               "numpy",
@@ -22,4 +10,3 @@ dependencies = ["matplotlib",
               "seaborn",
               "scikit-learn",
               "reportlab" ]
-
