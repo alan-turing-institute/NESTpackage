@@ -3,12 +3,12 @@ from pathlib import Path
 from nest.renderer import base_renderer
 import importlib.util
 import datetime
-from io import BytesIO
-from matplotlib import pylab
+import random as rd
+
+
 import pandoc
 from pandoc.types import Header, Image, Str, HorizontalRule
 from pandoc.types import Para, Pandoc, Meta, RawBlock, Format
-import random as rd
 
 def getPara(text):
     return Para([Str(text)])

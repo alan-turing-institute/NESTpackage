@@ -93,6 +93,8 @@ def __addStatToOutput__(secNum, stats, renderer, csvObj, csvStart):
 def makeFullReport(rendererClass, df: pd.DataFrame, filename: str,name: str,
                    srcCols: List[str], dstCols: List[str],
                    weightCol: str, timeCol: str,options={}):
+
+
     fcsv = open(filename.split('.')[0]+'.csv', 'w')
     csvObj = csv.writer(fcsv)
     headerRow = ['Data Type', 'Method Type', 'Statistic/Name', 'Measure',
@@ -156,6 +158,12 @@ def makeFullReport(rendererClass, df: pd.DataFrame, filename: str,name: str,
 
     renderer.addPageBreak()
     renderer.addSectionPage('Section 2: Full Graph stats')
+
+
+    if weightCol is None:
+        # a weight column with value 1 if there is no weight specified
+        df["temp_weight_col"] = 1.0
+        weightCol = "temp_weight_col"
 
     G = mg.makeDirectedGraph(df, srcCols, dstCols, weightCol)
     stats = getAllStatistics(G)
