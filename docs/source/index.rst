@@ -65,6 +65,3 @@ Quick links
     api
 
 
-.. automodule:: nest 
-          :members:
-

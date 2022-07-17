@@ -7,6 +7,12 @@ MODE = "pandoc"
 
 
 def distPlot(data, name):
+    """ Constructs a dist plot from set of data
+    :param: data: Data assumed to be a column of values for the plot
+    :param: name: Name used for the title
+    :return: Figure handle of the resultant plot
+    """
+
     figure = pylab.figure(figsize=(5, 2.4))
     # distplot has been deprecated
     sns.distplot(data)

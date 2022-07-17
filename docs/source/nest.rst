@@ -10,6 +10,7 @@ Subpackages
    nest.graphcreator
    nest.graphstatistics
    nest.renderer
+   nest.reportgenerator
 
 Submodules
 ----------
