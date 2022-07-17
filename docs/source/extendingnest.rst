@@ -1,4 +1,7 @@
 Extending Nest
 =============
 
-TO DO
+We strongly support others taking and extending NEST. 
+
+
+STILL UNDER CONSTRUCTION.
