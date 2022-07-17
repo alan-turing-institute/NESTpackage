@@ -2,7 +2,7 @@
 
 The NEtwork STatistic (**NEST**) package is designed to give a quick
 and easy way to produce in depth initial exploratory analysis of a network
-dataset.
+dataset. Full details can be found in the [documentation](https://network-statistic-nest-package.readthedocs.io/en/latest/).
 
 
 This framework where given an input graph, of any type, 
