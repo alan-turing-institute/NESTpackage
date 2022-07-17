@@ -10,11 +10,11 @@ import pandoc
 from pandoc.types import Header, Image, Str, HorizontalRule
 from pandoc.types import Para, Pandoc, Meta, RawBlock, Format
 
-def getPara(text):
+def __getPara__(text):
     return Para([Str(text)])
 
 
-def tableConverter(listoflists,full=False):
+def __tableConverter__(listoflists,full=False):
     titl1 =listoflists[0]
     row0 = ' | '.join(str(x) for x in titl1)
     headRow = ''.join(x if x=='|' else "-" for x in row0)
@@ -26,7 +26,7 @@ def tableConverter(listoflists,full=False):
     else:
         return q2[1][0]
 
-def plotWrapper(figure,caption="",fileT = ".png"):
+def __plotWrapper__(figure,caption="",fileT = ".png"):
     lc1 = [chr(97+i) for i in range(26)]
     name1 = ''.join(rd.choice(lc1) for x in range(8)) + fileT
     figure.savefig('tempImages/'+name1, format='png',bbox_inches='tight')
@@ -81,48 +81,85 @@ class pandocPdf(base_renderer.baseRenderer):
 
 
     def addSectionPage(self, title):
+        """ Add a section page to the document in question.
+
+        :param text: Title of the section
+        """
         statText = Header(1, (title, [], []), [Str(title)])
         self.headings.append([1,title])
         self.flowables.append(statText)
 
     def addHeading(self,level,text):
+        """ Add a header to the document in question.
+
+        :param level: Header Level
+        :param text: Title of the Header
+        """
         statText = Header(level, (text, [], []), [Str(text)])
         self.headings.append([level,text])
         self.flowables.append(statText)
 
     def addText(self,text):
-        statText = getPara(text)
+        """ Add text to the document in question.
+
+        :param text: Text to be added
+        """
+        statText = __getPara__(text)
         self.flowables.append(statText)
 
     def addTable(self,text):
-        t1 = tableConverter(text)
+        """ Add table to the document in question.
+
+        :param table: Table to be added
+        """
+        t1 = __tableConverter__(text)
         self.flowables.append(t1)
 
     def addTableFromDict(self, data, options={}):
+        """ Add a table from a dictionary structure
+        """
         l1 = [['Statistics', ""]]+sorted(list(data.items()))
-        t = tableConverter(l1)
+        t = __tableConverter__(l1)
         self.flowables.append(t)
 
     def addPlot(self,figureHandle):
-        t = plotWrapper(figureHandle)
+        """ Add figure to the document in question.
+
+        :param figureHandle: Matplotlib figure handle to add to the document
+        """
+        t = __plotWrapper__(figureHandle)
         self.flowables.append(t)
 
     def addImage(self,imagePath,caption=""):
+        """ Add image to the document in question.
+
+        :param imagePath: Path to the image in question
+        :param caption: Image Caption
+        """
         t = Para([Image(('', [], []), [Str(caption),], (imagePath, 'fig:'))])
         self.flowables.append(t)
 
     def addImageWidth(self,imagePath,width,caption=""):
+        """ Add image to the document in question.
+
+        :param imagePath: Path to the image in question
+        :param width: Width of image
+        :param caption: Image Caption
+        """
         t = Para([Image(('', [], [('width',str(width))]), [Str(caption),], (imagePath, 'fig:'))])
         self.flowables.append(t)
 
     def addPageBreak(self):
+        """ Add page break to the document in question.
+        """
         self.flowables.append(HorizontalRule())
 
     def render(self):
-        print('sdfsdf124')
+        """ Save the document to disk.
+        """
         pandoc.write(Pandoc(Meta({}),self.flowables),self.filename+".pdf")
 
-def makeSidebar(headings):
+def __makeSidebar__(headings):
     p1 = Path(__file__)
     imagePath = os.path.join(os.path.dirname(p1),"logo.png")
     block2 = Para([Image(('', [], [('width',str(250))]), [Str(""),],
@@ -207,12 +244,13 @@ class pandocHTML(pandocPdf):
 
 
     def render(self):
-        print('sdfsdf123')
+        """ Save the document to disk.
+        """
         p1 = Path(__file__)
         temp = os.path.join(os.path.dirname(p1),"standard.css")
         temp = str(temp)
 
-        sidebarhtml = makeSidebar(self.headings)
+        sidebarhtml = __makeSidebar__(self.headings)
         self.flowables = sidebarhtml + self.flowables
 #        pandocSidebar = RawBlock(Format("html"),sidebarhtml)
 #        self.flowables.insert(0,pandocSidebar)

@@ -20,19 +20,31 @@ def __filterNan__(value,defaultValue):
 
 
 class number_of_nodes(baseStatClass):
+    """
+        Basic statistic: Number of Nodes
+    """
     def __init__(self, G, optionsDict):
         self.data = G.number_of_nodes()
 
 class number_of_nodes_TS(baseTimeSeriesFromBase):
+    """
+        Time Series Basic statistic: Number of Nodes
+    """
     inbuiltMethod = number_of_nodes
 
 
 
 class number_of_edges(baseStatClass):
+    """
+        Basic statistic: Number of Edges
+    """
     def __init__(self, G, optionsDict):
         self.data = G.number_of_edges()
 
 class number_of_edges_TS(baseTimeSeriesFromBase):
+    """
+        Time Series Basic statistic: Number of Edges
+    """
     inbuiltMethod = number_of_edges
 
 

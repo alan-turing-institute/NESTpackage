@@ -5,11 +5,16 @@ from nest.reportgenerator import plot_maker
 
 class baseStatClass:
     def get_csv(self):
+        """ Get the output to write to the csv file
+        """
         if isinstance(self.data, dict):
             return [list(x) for x in self.data.items()]
         return [['value', str(self.data), ]]
 
     def get_report(self):
+        """ Get the output to write to the main report file
+        for non temporal statistics
+        """
         if isinstance(self.data, dict):
             return self.data
         return str(self.data)
@@ -17,6 +22,8 @@ class baseStatClass:
 
 class baseWithHistPlot(baseStatClass):
     def get_csv(self):
+        """ Get the output to write to the csv file
+        """
         if isinstance(self.data, dict):
             res = [list(x) for x in self.data.items()]
         else:
@@ -29,6 +36,8 @@ class baseWithHistPlot(baseStatClass):
         return res
 
     def makePlot(self):
+        """ Make a series of histogram plots on the dataset
+        """
         statName = type(self).__name__
         if hasattr(self, 'histlog') and self.histlog:
             return [plot_maker.makeHistogram(self.histData, statName, True), ]
@@ -38,11 +47,17 @@ class baseWithHistPlot(baseStatClass):
 
 class baseTimeSeriesStats:
     def get_csv(self):
+        """ Get the output to write to the csv file
+        for the time series data
+        """
         if isinstance(self.data, dict):
             return [list(x) for x in self.data.items()]
         return str(self.data)
 
     def get_report(self):
+        """ Get the output to write to the main report
+        for the time series data
+        """
         if isinstance(self.data, dict):
             return self.data
         return str(self.data)
@@ -50,6 +65,9 @@ class baseTimeSeriesStats:
 
 class baseTimeSeriesWithHistPlot(baseTimeSeriesStats):
     def get_csv(self):
+        """ Get the output to write to the csv file
+        for the time series data
+        """
         if isinstance(self.data, dict):
             res = [list(x) for x in self.data.items()]
         else:
@@ -62,6 +80,8 @@ class baseTimeSeriesWithHistPlot(baseTimeSeriesStats):
         return res
 
     def makePlot(self):
+        """ Make a series of histogram plots on the dataset
+        """
         statName = type(self).__name__
         return [plot_maker.makeHistogram(self.histData, statName), ]
 
@@ -99,6 +119,8 @@ class baseTimeSeriesFromBase(baseTimeSeriesStats):
         return res
 
     def makePlot(self):
+        """ Make a series of time series and histogram plots of the data
+        """
         statName = type(self).__name__
         plots = [plot_maker.linePlot(self.ts, self.plotData, statName), ]
         plots += [plot_maker.makeHistogram(self.plotData, statName), ]

@@ -15,6 +15,15 @@ import sys
 VERSION = 1.0
 
 def getAllStatistics(G, reqStats=lambda x: True):
+    """ Computes all network statistics on a graph graph of choice
+    Note the computed statistics are still in the nest class structure which is
+    used to construct the pdf outputs.
+
+    :param G: A networkx graph
+    :param reqStats: A function to filter the statistics produces defaults to true
+    :return: A dictionary of the results of each of the statistics
+    """
+
     result = {}
     for statModule in graphstatistics.statModules:
         result[statModule.name] = {}
@@ -33,6 +42,14 @@ def getAllStatistics(G, reqStats=lambda x: True):
 
 
 def getAllTimeSeriesStatistics(Gs, reqStats=lambda x: True):
+    """ Computes all temporal network statistics on a graph graph of choice
+    Note the computed statistics are still in the nest class structure which is
+    used to construct the pdf outputs.
+
+    :param Gs: A time series of networkx graphs as a dictionary
+    :param reqStats: A function to filter the statistics produces defaults to true
+    :return: A dictionary of the results of each of the statistics
+    """
     result = {}
     for statModule in graphstatistics.statModules:
         result[statModule.name] = {}
@@ -93,6 +110,23 @@ def __addStatToOutput__(secNum, stats, renderer, csvObj, csvStart):
 def makeFullReport(rendererClass, df: pd.DataFrame, filename: str,name: str,
                    srcCols: List[str], dstCols: List[str],
                    weightCol: str, timeCol: str,options={}):
+    """
+    Main function of Nest. This function takes the dataset, and the renderer
+    and the metadata and combines this into the report.
+
+    :param rendererClass: The renderer to use to use (e.g. reportlabPDF), see the renderer module for a list of possible options.
+    :param df: A pandas dataframe containing the edge list
+    :param filename: The filename to store the resultant output
+    :param name: The name of the dataset (used for titles)
+    :param srcCols: The column(s) used to construct the source node
+    :param dstCols: The column(s) used to construct the destination node
+    :param weightCol: The column which stores the edge weight.  If none the function assumes that all weights are 1.
+    :param timeCol: The column which stores the temporal index If none, we assume that the data is static.
+
+
+    :return: Functions saves output to disk.
+    """
+
 
 
     fcsv = open(filename.split('.')[0]+'.csv', 'w')

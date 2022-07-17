@@ -8,10 +8,10 @@ def makeDirectedGraph(df, srcColNames: List[str], dstColNames: List[str],
     """ Constructs a graph from a dataframe.  This function takes a dataframe
     and constructs a graph in which each of the rows represents an edge.
 
-    :param: df: pandas dataframe where each row represents an edge
-    :param: srcColNames: Columns that represent the source columns
-    :param: dstColNames: Columns that represent the destination columns
-    :param: weightCol: Column that represents the edge weight
+    :param df: pandas dataframe where each row represents an edge
+    :param srcColNames: Columns that represent the source columns
+    :param dstColNames: Columns that represent the destination columns
+    :param weightCol: Column that represents the edge weight
     :return: A networkx graph
     """
     # combine the columns
@@ -36,11 +36,11 @@ def makeTimeSeriesOfGraphs(df,timeCol: str, srcColNames: List[str],
     """ Constructs a graph from a dataframe.  This function takes a dataframe
     and constructs a graph in which each of the rows represents an edge.
 
-    :param: df: pandas dataframe where each row represents an edge
-    :param: timeCol: Columns that represent the time column
-    :param: srcColNames: Columns that represent the source columns
-    :param: dstColNames: Columns that represent the destination columns
-    :param: weightCol: Column that represents the edge weight
+    :param df: pandas dataframe where each row represents an edge
+    :param timeCol: Columns that represent the time column
+    :param srcColNames: Columns that represent the source columns
+    :param dstColNames: Columns that represent the destination columns
+    :param weightCol: Column that represents the edge weight
     :return: A networkx graph
     """
     result = {}

@@ -13,7 +13,7 @@ from matplotlib import pylab
 
 # from
 # https://stackoverflow.com/questions/5327670/image-aspect-ratio-using-reportlab-in-python
-def get_image(path, width=1*cm):
+def __get_image__(path, width=1*cm):
     img = utils.ImageReader(path)
     iw, ih = img.getSize()
     aspect = ih / float(iw)
@@ -50,7 +50,7 @@ class reportlabRenderer(base_renderer.baseRenderer):
         flowables.append(Spacer(1*cm, 1*cm))
         p1 = Path(__file__)
         logopath = os.path.join(os.path.dirname(p1),"logo.png")
-        flowables.append(get_image(logopath, width=6*cm))
+        flowables.append(__get_image__(logopath, width=6*cm))
         if importlib.util.find_spec('git'):
             import git
             repo = git.Repo(search_parent_directories=True)
