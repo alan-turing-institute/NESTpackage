@@ -59,7 +59,6 @@ Quick links
 
     installation
     quickstart
-    commandline
     technicaldetails 
     extendingnest
     contributors
