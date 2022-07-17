@@ -42,15 +42,15 @@ class reportlabRenderer(base_renderer.baseRenderer):
             spaceAfter=40,
             alignment=styles.TA_CENTER
         )
-        flowables.append(Spacer(8*cm, 8*cm))
+        flowables.append(Spacer(7*cm, 7*cm))
         title = Paragraph('Network Statistic Report', titlePageStyle)
         flowables.append(title)
         title = Paragraph(self.name, titlePageStyle)
         flowables.append(title)
-        flowables.append(Spacer(3*cm, 3*cm))
+        flowables.append(Spacer(1*cm, 1*cm))
         p1 = Path(__file__)
         logopath = os.path.join(os.path.dirname(p1),"logo.png")
-        flowables.append(get_image(logopath, width=7*cm))
+        flowables.append(get_image(logopath, width=6*cm))
         if importlib.util.find_spec('git'):
             import git
             repo = git.Repo(search_parent_directories=True)

@@ -9,4 +9,6 @@ dependencies = ["matplotlib",
               "scipy",
               "seaborn",
               "scikit-learn",
-              "reportlab" ]
+              "reportlab",
+              "python-louvain"
+              ]
