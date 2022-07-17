@@ -76,8 +76,7 @@ def main():
         raise Exception('Column',args.weight,' not found')
 
     if args.time is None:
-        args.time = df.columns[-1]
-        print('No time column provided using ', args.time)
+        print('No time column provided,')
     else:
         if args.time not in df.columns:
             raise Exception('Column',args.time,' not found')

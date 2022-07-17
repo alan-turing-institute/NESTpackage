@@ -172,9 +172,13 @@ def makeFullReport(rendererClass, df: pd.DataFrame, filename: str,name: str,
     renderer.addPageBreak()
     renderer.addSectionPage('Section 3: Time Series Graph stats')
 
-    Gs = mg.makeTimeSeriesOfGraphs(df, timeCol, srcCols, dstCols, weightCol)
-    stats = getAllTimeSeriesStatistics(Gs)
-    __addStatToOutput__('3', stats, renderer, csvObj, 'GraphTs')
+    if timeCol is not None:
+
+        # If there is a time column
+
+        Gs = mg.makeTimeSeriesOfGraphs(df, timeCol, srcCols, dstCols, weightCol)
+        stats = getAllTimeSeriesStatistics(Gs)
+        __addStatToOutput__('3', stats, renderer, csvObj, 'GraphTs')
     fcsv.close()
 
     ## Final render step
