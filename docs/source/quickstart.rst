@@ -61,6 +61,7 @@ column is named "from" and the destination column is named "to" we would run
 the following: 
 
 .. code-block:: console
+
    nest --data_file data.csv --src from --dst to
 
 Running this would then produce a PDF summarising your network using every
@@ -71,6 +72,7 @@ If you would like to have a html output, then you can use the following
 command:
 
 .. code-block:: console
+
    nest --data_file data.csv --src from --dst to --output_type pandocHTML
 
 Note to run this you need to have the pandoc library installed, which is not

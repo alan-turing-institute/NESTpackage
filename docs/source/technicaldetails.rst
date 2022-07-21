@@ -1,6 +1,6 @@
 
-Technical Details
-=================
+Technical Details: Extending Nest
+=================================
 
 The package is designed to be strongly extensible allowing ours and others to
 add additional network statistics to our package. In fact we strongly encourage

@@ -60,7 +60,6 @@ Quick links
     installation
     quickstart
     technicaldetails 
-    extendingnest
     contributors
     api
 
