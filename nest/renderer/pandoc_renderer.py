@@ -255,7 +255,7 @@ class pandocHTML(pandocPdf):
 #        pandocSidebar = RawBlock(Format("html"),sidebarhtml)
 #        self.flowables.insert(0,pandocSidebar)
         pandoc.write(Pandoc(Meta({}),self.flowables), self.filename+".html",
-                     format="html", options=["--standalone",
+                     format="html", options=[ "--metadata","title=NEST_Output","--standalone",
                                              "--self-contained", "-V",
                                              "lang=en","--css",temp])
 
