@@ -14,11 +14,9 @@ def distPlot(data, name):
     :return: Figure handle of the resultant plot
     """
 
-    figure = pylab.figure(figsize=(5, 2.4))
-    # distplot has been deprecated
-    sns.distplot(data)
-    pylab.title(name)
-    return figure
+    temp1 = sns.displot(data,kde=True)
+    temp1.set_titles(name)
+    return temp1
 
 
 def makeSpy(data, name):
