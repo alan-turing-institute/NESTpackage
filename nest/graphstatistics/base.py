@@ -28,21 +28,27 @@ class baseWithHistPlot(baseStatClass):
             res = [list(x) for x in self.data.items()]
         else:
             res = [['', str(self.data), ]]
-        res.append(['NumRecords', len(self.histData)])
-        values, edges = np.histogram(self.histData, bins='doane')
-        for i in range(101):
-            p1 = np.percentile(self.histData, i)
-            res.append(['percentile '+str(i), p1])
+        ## Add hist data stats if they exist
+        if hasattr(self,"histData"):
+            res.append(['NumRecords', len(self.histData)])
+            values, edges = np.histogram(self.histData, bins='doane')
+            for i in range(101):
+                p1 = np.percentile(self.histData, i)
+                res.append(['percentile '+str(i), p1])
         return res
 
     def makePlot(self):
         """ Make a series of histogram plots on the dataset
         """
         statName = type(self).__name__
-        if hasattr(self, 'histlog') and self.histlog:
-            return [plot_maker.makeHistogram(self.histData, statName, True), ]
+        ## Add hist data stats if they exist
+        if hasattr(self,"histData"):
+            if hasattr(self, 'histlog') and self.histlog:
+                return [plot_maker.makeHistogram(self.histData, statName, True), ]
+            else:
+                return [plot_maker.makeHistogram(self.histData, statName), ]
         else:
-            return [plot_maker.makeHistogram(self.histData, statName), ]
+            return []
 
 
 class baseTimeSeriesStats:

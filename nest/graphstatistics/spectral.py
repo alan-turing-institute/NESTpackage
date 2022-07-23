@@ -7,35 +7,44 @@ from nest.graphstatistics.base import baseWithHistPlot
 import numpy as np
 name = 'Spectral Approaches'
 
-class Adj_Top_Spectra(baseWithHistPlot):
+class Adj_LWCC_Top_Spectra(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
         G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G)
         B = A
-        self.data = sparse.linalg.eigsh(B,10,return_eigenvectors=False)
+        if B.shape[0]<11:
+            self.data = linalg.eigvalsh(B.todense())
+        else:
+            self.data = sparse.linalg.eigsh(B,10,return_eigenvectors=False)
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
 
-class SymAdj_Top_Spectra(baseWithHistPlot):
+class SymAdj_LWCC_Top_Spectra(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
         G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G)
         B = (A + A.T)/2
-        self.data = sparse.linalg.eigsh(B,10,return_eigenvectors=False)
+        if B.shape[0]<11:
+            self.data = linalg.eigvalsh(B.todense())
+        else:
+            self.data = sparse.linalg.eigsh(B,10,return_eigenvectors=False)
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
-class Adj_Top_Svd(baseWithHistPlot):
+class Adj_LWCC_Top_Svd(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
         G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G,dtype=np.float)
-        self.data = sparse.linalg.svds(A,10,return_singular_vectors = False)
+        if A.shape[0]<11:
+            self.data = linalg.svd(A.todense(),compute_uv=False)
+        else:
+            self.data = sparse.linalg.svds(A,10,return_singular_vectors = False)
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
 
-class Lap_Smallest_Spectra(baseWithHistPlot):
+class Lap_LWCC_Smallest_Spectra(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
         G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A0 = nx.to_scipy_sparse_matrix(G)
@@ -45,11 +54,14 @@ class Lap_Smallest_Spectra(baseWithHistPlot):
         diags = A.sum(axis=1)
         D = sparse.spdiags(diags.flatten(), [0], m, n, format="csr")
         L = D - A
-        self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,sigma=0)
+        if L.shape[0]<11:
+            self.data = linalg.eigvalsh(L.todense())
+        else:
+            self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,sigma=0)
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
-class RwLap_Smallest_Spectra(baseWithHistPlot):
+class RwLap_LWCC_Smallest_Spectra(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
         G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A0 = nx.to_scipy_sparse_matrix(G)
@@ -59,25 +71,34 @@ class RwLap_Smallest_Spectra(baseWithHistPlot):
         diags = 1/A.sum(axis=1)
         D = sparse.spdiags(diags.flatten(), [0], m, n, format="csr")
         L = D@A
-        self.data = sparse.linalg.eigs(L, 10, return_eigenvectors=False, which='LR')
+        if L.shape[0]<11:
+            self.data = linalg.eigvalsh(L.todense())
+        else:
+            self.data = sparse.linalg.eigs(L, 10, return_eigenvectors=False, which='LR')
         self.histData = self.data.real
         self.data = dict(enumerate(sorted(self.data)))
 
 
-class SymAdj_Top_Spectra_NoWeight(baseWithHistPlot):
+class SymAdj_LWCC_Top_Spectra_NoWeight(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
         G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G,weight=None)
         B = (A + A.T)/2
-        self.data = sparse.linalg.eigsh(B,10,return_eigenvectors=False)
+        if B.shape[0]<11:
+            self.data = linalg.eigvalsh(B.todense())
+        else:
+            self.data = sparse.linalg.eigsh(B,10,return_eigenvectors=False)
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
-class Adj_Top_Svd_NoWeight(baseWithHistPlot):
+class Adj_LWCC_Top_Svd_NoWeight(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
         G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G,dtype=np.float,weight=None)
-        self.data = sparse.linalg.svds(A,10,return_singular_vectors = False)
+        if A.shape[0]<11:
+            self.data = linalg.svd(A.todense(),compute_uv=False)
+        else:
+            self.data = sparse.linalg.svds(A,10,return_singular_vectors = False)
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
@@ -92,7 +113,10 @@ class Lap_Smallest_Spectra_NoWeight(baseWithHistPlot):
         diags = A.sum(axis=1)
         D = sparse.spdiags(diags.flatten(), [0], m, n, format="csr")
         L = D - A
-        self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,sigma=0)
+        if L.shape[0]<11:
+            self.data = linalg.eigvalsh(L.todense())
+        else:
+            self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,sigma=0)
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
@@ -106,6 +130,9 @@ class RwLap_Smallest_Spectra_NoWeight(baseWithHistPlot):
         diags = 1/A.sum(axis=1)
         D = sparse.spdiags(diags.flatten(), [0], m, n, format="csr")
         L = D@A
-        self.data = sparse.linalg.eigs(L, 10, return_eigenvectors=False, which='LR')
+        if L.shape[0]<11:
+            self.data = linalg.eigvalsh(L.todense())
+        else:
+            self.data = sparse.linalg.eigs(L, 10, return_eigenvectors=False, which='LR')
         self.histData = self.data.real
         self.data = dict(enumerate(sorted(self.data)))
