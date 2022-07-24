@@ -105,46 +105,86 @@ class reciprocity(baseStatClass):
 class reciprocity_TS(baseTimeSeriesFromBase):
     inbuiltMethod = reciprocity
 
+
+class number_of_connected(baseStatClass):
+    directed = False
+    def __init__(self, G, optionsDict):
+        self.data = nx.number_connected_components(G)
+
+class number_of_connected_TS(baseTimeSeriesFromBase):
+    inbuiltMethod = number_of_connected
+
 class number_of_weakly_connected(baseStatClass):
+    directed = True
     def __init__(self, G, optionsDict):
         self.data = nx.number_weakly_connected_components(G)
 
 class number_of_weakly_connected_TS(baseTimeSeriesFromBase):
+    directed = True
     inbuiltMethod = number_of_weakly_connected
 
 class number_of_strongly_connected(baseStatClass):
+    directed = True
     def __init__(self, G, optionsDict):
         self.data = nx.number_strongly_connected_components(G)
 
 class number_of_strongly_connected_TS(baseTimeSeriesFromBase):
+    directed = True
     inbuiltMethod = number_of_strongly_connected
 
+
+class number_degree0(baseStatClass):
+    directed = False
+    def __init__(self, G, optionsDict):
+        self.data = sum(1 for x in G if G.degree(x)==0)
+
+class number_degree0_TS(baseTimeSeriesFromBase):
+    directed = False
+    inbuiltMethod = number_degree0
+
 class number_outdegree0(baseStatClass):
+    directed = True
     def __init__(self, G, optionsDict):
         self.data = sum(1 for x in G if G.out_degree(x)==0)
 
 class number_outdegree0_TS(baseTimeSeriesFromBase):
+    directed = True
     inbuiltMethod = number_outdegree0
 
 class number_indegree0(baseStatClass):
+    directed = True
     def __init__(self, G, optionsDict):
         self.data = sum(1 for x in G if G.in_degree(x)==0)
 
 class number_indegree0_TS(baseTimeSeriesFromBase):
+    directed = True
     inbuiltMethod = number_indegree0
 
+class number_degree1(baseStatClass):
+    directed = False
+    def __init__(self, G, optionsDict):
+        self.data = sum(1 for x in G if G.degree(x)==1)
+
+class number_degree1_TS(baseTimeSeriesFromBase):
+    directed = False
+    inbuiltMethod = number_degree1
+
 class number_outdegree1(baseStatClass):
+    directed = True
     def __init__(self, G, optionsDict):
         self.data = sum(1 for x in G if G.out_degree(x)==1)
 
 class number_outdegree1_TS(baseTimeSeriesFromBase):
+    directed = True
     inbuiltMethod = number_outdegree1
 
 class number_indegree1(baseStatClass):
+    directed = True
     def __init__(self, G, optionsDict):
         self.data = sum(1 for x in G if G.in_degree(x)==1)
 
 class number_indegree1_TS(baseTimeSeriesFromBase):
+    directed = True
     inbuiltMethod = number_indegree1
 
 
@@ -161,7 +201,17 @@ def __getStats__(q2):
     data['kurtosis']  = stats.kurtosis(q2)
     return data
 
+
+class degree_Hist(baseWithHistPlot):
+    directed = False
+    def __init__(self, G, optionsDict):
+        deg  = list(dict(G.degree()).values())
+        self.histData = deg
+        self.histlog = True
+        self.data = __getStats__(deg)
+
 class in_degree_Hist(baseWithHistPlot):
+    directed = True
     def __init__(self, G, optionsDict):
         indeg  = list(dict(G.in_degree()).values())
         self.histData = indeg
@@ -170,6 +220,7 @@ class in_degree_Hist(baseWithHistPlot):
 
 
 class out_degree_Hist(baseWithHistPlot):
+    directed = True
     def __init__(self, G, optionsDict):
         outdeg  = list(dict(G.out_degree()).values())
         self.histData = outdeg
@@ -177,7 +228,19 @@ class out_degree_Hist(baseWithHistPlot):
         self.data = __getStats__(outdeg)
 
 
+class weight_hist(baseWithHistPlot):
+    directed = False
+    def __init__(self, G, optionsDict):
+        def get_weight(x):
+            return sum(G[x][y]['weight'] for y in G[x])
+        weight = [get_weight(x) for x in G]
+        self.histData = weight
+        self.histlog = True
+        self.data = __getStats__(weight)
+
+
 class out_weight_hist(baseWithHistPlot):
+    directed = True
     def __init__(self, G, optionsDict):
         def get_out_weight(x):
             return sum(G[x][y]['weight'] for y in G[x])
@@ -188,6 +251,7 @@ class out_weight_hist(baseWithHistPlot):
 
 
 class in_weight_hist(baseWithHistPlot):
+    directed = True
     def __init__(self, G, optionsDict):
         def get_in_weight(x):
             return sum(G[y][x]['weight'] for y, _ in G.in_edges(x))
@@ -198,6 +262,7 @@ class in_weight_hist(baseWithHistPlot):
 
 
 class out_in_degree_heatmap(baseStatClass):
+    directed = True
     def __init__(self, G, optionsDict):
         self.scatter = [(G.in_degree(x),G.out_degree(x)) for x in G]
         self.data = ''

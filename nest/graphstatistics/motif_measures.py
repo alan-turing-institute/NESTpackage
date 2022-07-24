@@ -24,12 +24,14 @@ if importlib.util.find_spec('motifcluster'):
     from motifcluster import motifadjacency as ma
 
     class Triadic_census(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             triadicCensus = nx.triadic_census(G)
             self.data = triadicCensus
 
 
     class Motif_Stats_M1(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M1
@@ -37,6 +39,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M2(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M2
@@ -44,6 +47,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M3(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M3
@@ -51,6 +55,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M4(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M4
@@ -71,6 +76,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M6(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M6
@@ -78,6 +84,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M7(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M7
@@ -85,6 +92,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M8(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M8
@@ -92,6 +100,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M9(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M9
@@ -99,6 +108,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M10(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M10
@@ -106,6 +116,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M11(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M11
@@ -113,6 +124,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M12(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M12
@@ -120,6 +132,7 @@ if importlib.util.find_spec('motifcluster'):
 
 
     class Motif_Stats_M13(baseStatClass):
+        directed = True
         def __init__(self, G, optionsDict):
             A = nx.to_scipy_sparse_matrix(G)
             func = ma.mam_M13

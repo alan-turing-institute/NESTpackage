@@ -49,7 +49,10 @@ class Path_Dist(baseWithHistPlot):
 
 class Path_Dist_LSCC(baseWithHistPlot):
     def __init__(self, G1, optionsDict):
-        nodes = max(nx.strongly_connected_components(G1), key=len)
+        if isinstance(G1,nx.Graph):
+            nodes = max(nx.connected_components(G1), key=len)
+        else:
+            nodes = max(nx.strongly_connected_components(G1), key=len)
         G = G1.subgraph(nodes)
         self.data = {}
         if len(G)<3:

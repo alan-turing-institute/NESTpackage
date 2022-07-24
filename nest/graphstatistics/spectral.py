@@ -4,12 +4,16 @@ from scipy import sparse
 from numpy import linalg
 from nest.graphstatistics.base import baseStatClass
 from nest.graphstatistics.base import baseWithHistPlot
+import networkx as nx
 import numpy as np
 name = 'Spectral Approaches'
 
-class Adj_LWCC_Top_Spectra(baseWithHistPlot):
+class Adj_LCC_Top_Spectra(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1, nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G)
         B = A
         if B.shape[0]<11:
@@ -20,9 +24,12 @@ class Adj_LWCC_Top_Spectra(baseWithHistPlot):
         self.data = dict(enumerate(sorted(self.data)))
 
 
-class SymAdj_LWCC_Top_Spectra(baseWithHistPlot):
+class SymAdj_LCC_Top_Spectra(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1, nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G)
         B = (A + A.T)/2
         if B.shape[0]<11:
@@ -32,9 +39,12 @@ class SymAdj_LWCC_Top_Spectra(baseWithHistPlot):
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
-class Adj_LWCC_Top_Svd(baseWithHistPlot):
+class Adj_LCC_Top_Svd(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1, nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G,dtype=np.float)
         if A.shape[0]<11:
             self.data = linalg.svd(A.todense(),compute_uv=False)
@@ -44,9 +54,12 @@ class Adj_LWCC_Top_Svd(baseWithHistPlot):
         self.data = dict(enumerate(sorted(self.data)))
 
 
-class Lap_LWCC_Smallest_Spectra(baseWithHistPlot):
+class Lap_LCC_Smallest_Spectra(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1, nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A0 = nx.to_scipy_sparse_matrix(G)
         A = (A0 + A0.T)/2
         # adapted from networkx code
@@ -61,9 +74,12 @@ class Lap_LWCC_Smallest_Spectra(baseWithHistPlot):
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
-class RwLap_LWCC_Smallest_Spectra(baseWithHistPlot):
+class RwLap_LCC_Smallest_Spectra(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1, nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A0 = nx.to_scipy_sparse_matrix(G)
         A = (A0 + A0.T)/2
         # adapted from networkx code
@@ -79,9 +95,12 @@ class RwLap_LWCC_Smallest_Spectra(baseWithHistPlot):
         self.data = dict(enumerate(sorted(self.data)))
 
 
-class SymAdj_LWCC_Top_Spectra_NoWeight(baseWithHistPlot):
+class SymAdj_LCC_Top_Spectra_NoWeight(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1, nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G,weight=None)
         B = (A + A.T)/2
         if B.shape[0]<11:
@@ -91,9 +110,12 @@ class SymAdj_LWCC_Top_Spectra_NoWeight(baseWithHistPlot):
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
-class Adj_LWCC_Top_Svd_NoWeight(baseWithHistPlot):
+class Adj_LCC_Top_Svd_NoWeight(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1, nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A = nx.to_scipy_sparse_matrix(G,dtype=np.float,weight=None)
         if A.shape[0]<11:
             self.data = linalg.svd(A.todense(),compute_uv=False)
@@ -103,9 +125,12 @@ class Adj_LWCC_Top_Svd_NoWeight(baseWithHistPlot):
         self.data = dict(enumerate(sorted(self.data)))
 
 
-class Lap_Smallest_Spectra_NoWeight(baseWithHistPlot):
+class Lap_LCC_Smallest_Spectra_NoWeight(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1, nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A0 = nx.to_scipy_sparse_matrix(G,weight=None)
         A = (A0 + A0.T)/2
         # adapted from networkx code
@@ -120,9 +145,12 @@ class Lap_Smallest_Spectra_NoWeight(baseWithHistPlot):
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
-class RwLap_Smallest_Spectra_NoWeight(baseWithHistPlot):
+class RwLap_LCC_Smallest_Spectra_NoWeight(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1, nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         A0 = nx.to_scipy_sparse_matrix(G,weight=None)
         A = (A0 + A0.T)/2
         # adapted from networkx code

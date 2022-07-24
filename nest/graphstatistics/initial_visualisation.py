@@ -7,7 +7,11 @@ name = 'Initial Visualisation'
 
 class MatrixPlot(baseStatClass):
     def __init__(self, G, optionsDict):
-        n1 = sorted([(y,x) for x,y in dict(G.out_degree()).items()])
+        # Test if the network is directed
+        if hasattr(G,"out_degree"):
+            n1 = sorted([(y,x) for x,y in dict(G.out_degree()).items()])
+        else:
+            n1 = sorted([(y,x) for x,y in dict(G.degree()).items()])
         n2 = [x[1] for x in n1]
         A = nx.to_scipy_sparse_matrix(G,nodelist=n2)
         self.A = A

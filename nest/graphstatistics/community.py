@@ -40,10 +40,13 @@ class Louvain(baseWithHistPlot):
 
 
 
-class Louvain_lwcc(baseWithHistPlot):
+class Louvain_lcc(baseWithHistPlot):
     def __init__(self, G1, optionsDict):
         print('community --> not weighted')
-        G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
+        if isinstance(G1,nx.Graph):
+            G = G1.subgraph(max(nx.connected_components(G1), key=len))
+        else:
+            G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
         q1 = community.best_partition(G.to_undirected())
         m1 = max(q1.values())+1
         numer = np.zeros((m1,m1))
