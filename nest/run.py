@@ -27,6 +27,19 @@ def parse_args(args=None):
     parser.add_argument('--dst', type=str, default=None,
                             help = 'Dest Column(s) separated by commas (Default Column 2)',
                             metavar='')
+
+    # parser.add_argument('--directed', type=str, default=None,
+    #                         help = 'Is the data directed (Default True)', metavar='')
+
+    # Based on the solution from
+    # https://stackoverflow.com/questions/15008758/parsing-boolean-values-with-argparse
+
+    feature_parser = parser.add_mutually_exclusive_group(required=False)
+    feature_parser.add_argument('--directed', dest='directed', action='store_true',help = "Data is directed (Default behaviour)")
+    feature_parser.add_argument('--no-directed', dest='directed', action='store_false',help = "Data is undirected (Not Default behaviour)")
+    parser.set_defaults(feature=True)
+
+
     parser.add_argument('--weight', type=str, default=None,
                             help = 'Weight Column (Default None)', metavar='')
     parser.add_argument('--time', type=str, default=None,
@@ -54,6 +67,10 @@ def main():
 
 
     df = pd.read_csv(args.data_file)
+
+    if args.directed is None:
+        print('Network is assumed directed')
+        args.directed = True
 
     if args.src is None:
         args.src = [df.columns[0], ]
@@ -106,7 +123,8 @@ def main():
 
 
     report_generator.makeFullReport(rend, df, args.output_file, args.data_name,
-                                   args.src, args.dst, args.weight, args.time)
+                                   args.src, args.dst, args.weight, args.time,
+                                    directed=args.directed)
 
 
 if __name__ == '__main__':
