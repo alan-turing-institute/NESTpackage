@@ -8,6 +8,7 @@ from sklearn.metrics import mutual_info_score
 from typing import List
 import csv
 from nest import graphstatistics
+import networkx as nx
 import numpy as np
 import pandas as pd
 import sys
@@ -24,6 +25,11 @@ def getAllStatistics(G, reqStats=lambda x: True):
     :return: A dictionary of the results of each of the statistics
     """
 
+    if isinstance(G, nx.DiGraph):
+        directed = True
+    else:
+        directed = False
+
     result = {}
     for statModule in graphstatistics.statModules:
         result[statModule.name] = {}
@@ -33,6 +39,11 @@ def getAllStatistics(G, reqStats=lambda x: True):
             if isclass(vStat[meth]) and issubclass(vStat[meth], baseStatClass):
                 if vStat[meth].__module__ != 'nest.graphstatistics.base':
                     if reqStats(vStat[meth]):
+
+                        # do we need to skip this statistic
+                        if hasattr(vStat[meth],"directed"):
+                            if vStat[meth].directed != directed:
+                                continue
                         tempRes = vStat[meth](G, reqStats)
                         name = meth.split('_')
                         name = [x.capitalize() for x in name]
@@ -50,6 +61,14 @@ def getAllTimeSeriesStatistics(Gs, reqStats=lambda x: True):
     :param reqStats: A function to filter the statistics produces defaults to true
     :return: A dictionary of the results of each of the statistics
     """
+
+    # test if the graph is directed
+    G = list(Gs.values())[0]
+    if isinstance(G, nx.DiGraph):
+        directed = True
+    else:
+        directed = False
+
     result = {}
     for statModule in graphstatistics.statModules:
         result[statModule.name] = {}
@@ -60,6 +79,12 @@ def getAllTimeSeriesStatistics(Gs, reqStats=lambda x: True):
                 if issubclass(vStat[meth], baseTimeSeriesStats):
                     if vStat[meth].__module__ != 'nest.graphstatistics.base':
                         if reqStats(vStat[meth]):
+
+                            # do we need to skip this statistic
+                            if hasattr(vStat[meth],"directed"):
+                                if vStat[meth].directed != directed:
+                                    continue
+
                             tempRes = vStat[meth](Gs, reqStats)
                             name = meth.split('_')
                             name = ' '.join([x.capitalize() for x in name])
@@ -109,7 +134,7 @@ def __addStatToOutput__(secNum, stats, renderer, csvObj, csvStart):
 # https://medium.com/@vonkunesnewton/generating-pdfs-with-reportlab-ced3b04aedef
 def makeFullReport(rendererClass, df: pd.DataFrame, filename: str,name: str,
                    srcCols: List[str], dstCols: List[str],
-                   weightCol: str, timeCol: str,options={}):
+                   weightCol: str, timeCol: str,options={}, directed: bool = True):
     """
     Main function of Nest. This function takes the dataset, and the renderer
     and the metadata and combines this into the report.
@@ -199,7 +224,8 @@ def makeFullReport(rendererClass, df: pd.DataFrame, filename: str,name: str,
         df["temp_weight_col"] = 1.0
         weightCol = "temp_weight_col"
 
-    G = mg.makeDirectedGraph(df, srcCols, dstCols, weightCol)
+    G = mg.makeDirectedGraph(df, srcCols, dstCols, weightCol,directed=directed)
+
     stats = getAllStatistics(G)
     __addStatToOutput__('2', stats, renderer, csvObj, 'FullGraph')
 
@@ -210,7 +236,7 @@ def makeFullReport(rendererClass, df: pd.DataFrame, filename: str,name: str,
 
         # If there is a time column
 
-        Gs = mg.makeTimeSeriesOfGraphs(df, timeCol, srcCols, dstCols, weightCol)
+        Gs = mg.makeTimeSeriesOfGraphs(df, timeCol, srcCols, dstCols, weightCol,directed=directed)
         stats = getAllTimeSeriesStatistics(Gs)
         __addStatToOutput__('3', stats, renderer, csvObj, 'GraphTs')
     fcsv.close()
