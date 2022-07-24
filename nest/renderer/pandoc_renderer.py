@@ -27,12 +27,14 @@ def __tableConverter__(listoflists,full=False):
         return q2[1][0]
 
 def __plotWrapper__(figure,caption="",fileT = ".png"):
+    if not os.path.isdir('nestTempImages/'):
+        os.mkdir('nestTempImages/')
     lc1 = [chr(97+i) for i in range(26)]
     name1 = ''.join(rd.choice(lc1) for x in range(8)) + fileT
-    figure.savefig('tempImages/'+name1, format='png',bbox_inches='tight')
+    figure.savefig('nestTempImages/'+name1, format='png',bbox_inches='tight')
     from pandoc.types import Str
     from pandoc.types import Para
-    return Para([Image(('', [], []), [Str(caption),], ('tempImages/'+name1, 'fig:'))])
+    return Para([Image(('', [], []), [Str(caption),], ('nestTempImages/'+name1, 'fig:'))])
 
 class pandocPdf(base_renderer.baseRenderer):
     def __init__(self,filename,name,options):
