@@ -8,7 +8,8 @@ import random as rd
 import sys
 import os
 
-
+class MissingPackages(Exception):
+    pass
 
 
 def parse_args(args=None):
@@ -100,7 +101,8 @@ def main():
             rend = renderer.renderer_dict[args.output_type]
         else:
             # Valid package but package not installed
-            raise Exception("Packages ",renderer.renderer_req[args.output_type]," missing for renderer ",args.output_type)
+            print("\n\nYou need additional package to run the renderer you requested")
+            raise MissingPackages("Packages ",renderer.renderer_req[args.output_type]," missing for renderer ",args.output_type)
 
 
     report_generator.makeFullReport(rend, df, args.output_file, args.data_name,
