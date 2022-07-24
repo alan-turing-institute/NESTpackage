@@ -4,7 +4,7 @@ import pandas as pd
 
 
 def makeDirectedGraph(df, srcColNames: List[str], dstColNames: List[str],
-                      weightCol: str):
+                      weightCol: str, directed: bool = True):
     """ Constructs a graph from a dataframe.  This function takes a dataframe
     and constructs a graph in which each of the rows represents an edge.
 
@@ -24,15 +24,19 @@ def makeDirectedGraph(df, srcColNames: List[str], dstColNames: List[str],
     df2['src'] = df2[srcColNames].apply(tuple, axis=1)
     df2['dst'] = df2[dstColNames].apply(tuple, axis=1)
     #
-    G = nx.from_pandas_edgelist(df2, 'src', 'dst', edge_attr=weightCol,
-                                create_using=nx.DiGraph)
+    if directed:
+        G = nx.from_pandas_edgelist(df2, 'src', 'dst', edge_attr=weightCol,
+                                    create_using=nx.DiGraph)
+    else:
+        G = nx.from_pandas_edgelist(df2, 'src', 'dst', edge_attr=weightCol,
+                                    create_using=nx.Graph)
     for x in G:
         for y in G[x]:
             G[x][y]['weight'] = G[x][y][weightCol]
     return G
 
 def makeTimeSeriesOfGraphs(df,timeCol: str, srcColNames: List[str],
-                           dstColNames: List[str], weightCol: str):
+                           dstColNames: List[str], weightCol: str, directed: bool = True):
     """ Constructs a graph from a dataframe.  This function takes a dataframe
     and constructs a graph in which each of the rows represents an edge.
 
@@ -48,7 +52,8 @@ def makeTimeSeriesOfGraphs(df,timeCol: str, srcColNames: List[str],
     df['tempCol'] = pd.to_datetime(df[timeCol],dayfirst=True)
 
     for time, df_t in df.groupby('tempCol'):
-        Gt = makeDirectedGraph(df_t, srcColNames, dstColNames, weightCol)
+        Gt = makeDirectedGraph(df_t, srcColNames, dstColNames, weightCol,
+                               directed=directed)
         result[time] = Gt
 
     del df['tempCol']
