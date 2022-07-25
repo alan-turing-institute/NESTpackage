@@ -59,6 +59,7 @@ Quick links
 
     installation
     quickstart
+    commandlineoptions
     technicaldetails 
     contributors
     api

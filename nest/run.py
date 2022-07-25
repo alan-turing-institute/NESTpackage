@@ -47,7 +47,7 @@ def parse_args(args=None):
     parser.add_argument('--output_type', type=str, default="reportlabPDF",
                             help = 'Specify the output type, current options are reportlabPDF (default), pandocPDF and pandocHTML', metavar='')
 
-    parser.add_argument('--output_file', type=str, default='testTS',
+    parser.add_argument('--output_file', type=str, default='nestOutput',
                             help = 'Output file', metavar='')
     parser.add_argument('--data_name', type=str, default='Test',
                             help = 'Data set name', metavar='')
