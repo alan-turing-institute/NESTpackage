@@ -5,6 +5,7 @@ from nest.graphstatistics.base import baseTimeSeriesStats
 from nest.reportgenerator import plot_maker
 from pandas.api.types import is_numeric_dtype
 from sklearn.metrics import mutual_info_score
+from sklearn.utils.multiclass import type_of_target
 from typing import List
 import csv
 from nest import graphstatistics
@@ -178,13 +179,17 @@ def makeFullReport(rendererClass, df: pd.DataFrame, filename: str,name: str,
         for x in countCsv.items():
             csvObj.writerow(['Column data', 'HighRanks', col, x[0], x[1]])
 
-    mutualInfoMatrix = np.zeros((len(df.columns), len(df.columns)))
-    for ix1, col1 in enumerate(df):
-        for ix2, col2 in enumerate(df):
+    cols = [x for x in df if type_of_target(df[x])!='continuous']
+    mutualInfoMatrix = np.zeros((len(cols), len(cols)))
+    for ix1, col1 in enumerate(cols):
+        for ix2, col2 in enumerate(cols):
             val = mutual_info_score(df[col1], df[col2])
             mutualInfoMatrix[ix1][ix2] = val
             if ix1 < ix2:
                 csvObj.writerow(['Column data', 'MutualInfo', col1, col2, val])
+
+    mutualInfoMatrix = pd.DataFrame(mutualInfoMatrix)
+    mutualInfoMatrix.columns = cols
 
     renderer.addText('Mutual Information')
     plot = plot_maker.makeImshow(mutualInfoMatrix, 'MutualInfo')
