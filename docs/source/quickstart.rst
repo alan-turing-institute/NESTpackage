@@ -43,10 +43,10 @@ From a `csv` file running `nest` is as simple as running:
    nest --data_file exampleData.csv 
 
 Running this would then produce a PDF summarising your network using every
-statistic in Nest. 
-** It will also produce a csv file summarising all of the statistics 
-to make it easier to use.**
-Note for large graphs this may take a long time. 
+statistic in Nest. Note for large graphs this may take a long time. 
+
+It will also produce a csv file summarising all of the statistics 
+to make it easier to use.
 
 This will run the full nest report but it needs to make some assumptions:  
 
