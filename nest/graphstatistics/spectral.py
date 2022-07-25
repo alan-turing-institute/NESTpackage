@@ -76,9 +76,10 @@ class Lap_LCC_Spectra(baseWithHistPlot):
         if L.shape[0]<15:
             data = linalg.eigvalsh(L.todense())
             data = sorted(data,key=lambda x:abs(x))
-            self.data = data[-10:]
+            self.data = data[:10]
         else:
-            self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,sigma=0)
+            # self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,sigma=0)
+            self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,which="SM")
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
@@ -155,13 +156,14 @@ class Lap_LCC_Spectra_NoWeight(baseWithHistPlot):
         if L.shape[0]<15:
             data = linalg.eigvalsh(L.todense())
             data = sorted(data,key=lambda x:abs(x))
-            self.data = data[-10:]
+            self.data = data[:10]
         else:
-            self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,sigma=0)
+           # self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,sigma=0)
+            self.data = sparse.linalg.eigsh(L, 10, return_eigenvectors=False,which="SM")
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
 
-class RwLap_LCC__Spectra_NoWeight(baseWithHistPlot):
+class RwLap_LCC_Spectra_NoWeight(baseWithHistPlot):
     def __init__(self,G1, optionsDict):
         if isinstance(G1, nx.Graph):
             G = G1.subgraph(max(nx.connected_components(G1), key=len))
