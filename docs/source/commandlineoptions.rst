@@ -24,6 +24,14 @@ dst
    it will construct the node ID with the           
    combination of the columns                       
 
+directed 
+    Data is directed (Default behaviour). Note this flag does not need any
+    additional arguments
+
+no-directed 
+   Data is undirected (Not Default behaviour). Note this flag does not need any
+   additional arguments.
+
 weight 
    Weight Column (Default None). If this flag is set
    to None, the network is assumed to be unweighted 

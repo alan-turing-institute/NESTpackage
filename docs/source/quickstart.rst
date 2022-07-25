@@ -50,9 +50,9 @@ Note for large graphs this may take a long time.
 
 This will run the full nest report but it needs to make some assumptions:  
 
-* The data is static (i.e. there is no temporal structure) 
-* The data is directed 
-* The data is unweighted 
+* The data is **static** (i.e. there is no temporal structure) 
+* The data is **directed** 
+* The data is **unweighted** 
 * The source column is the first column  
 * The destination column is the second column  
 * The output will be saved in a file called "nestOutput"
@@ -86,8 +86,15 @@ destination columns.
 
    nest --data_file exampleData.csv --src Col1,Col2 --dst Col3,Col4 
 
-If the graph is either temporal or weighted, it is as simple as telling  `nest`
-which column has the temporal, or weight information: 
+If the graph is also undirected, we can specify this to `nest` with the following flag:
+
+.. code-block:: console
+
+   nest --data_file exampleData.csv --src Col1,Col2 --dst Col3,Col4 --no-directed 
+
+
+Further, if the graph is either temporal or weighted, it is as simple as
+telling  `nest` which column has the temporal, or weight information: 
 
 .. code-block:: console
 
@@ -140,6 +147,14 @@ dst
    it will construct the node ID with the           
    combination of the columns                       
 
+directed 
+    Data is directed (Default behaviour). Note this flag does not need any
+    additional arguments
+
+no-directed 
+   Data is undirected (Not Default behaviour). Note this flag does not need any
+   additional arguments.
+
 weight 
    Weight Column (Default None). If this flag is set
    to None, the network is assumed to be unweighted 
@@ -161,4 +176,3 @@ output_file
 
 data_name
    Data set name (Used for presentation)      
-
