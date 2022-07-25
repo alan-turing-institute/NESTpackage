@@ -21,6 +21,7 @@ class Adj_LCC_Top_Spectra(baseWithHistPlot):
             data = sorted(data,key=lambda x:abs(x))
             self.data = data[-10:]
         else:
+            B = B.astype(np.float64())
             self.data = sparse.linalg.eigsh(B,10,return_eigenvectors=False)
         self.histData = self.data
         self.data = dict(enumerate(sorted(self.data)))
