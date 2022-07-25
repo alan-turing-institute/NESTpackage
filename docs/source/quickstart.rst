@@ -29,8 +29,9 @@ with weight information in `Col10` the first row would represents an edge
 between node 9 and node 6 of weight 0.621. 
 
 For reference the full dataset can be found at the following 
-`webpage. <https://raw.githubusercontent.com/alan-turing-institute/NESTpackage/main/data/exampleData.csv>`
+`webpage <DS>`.
 
+.. _DS: https://raw.githubusercontent.com/alan-turing-institute/NESTpackage/main/docs/data/exampleData.csv 
 
 Running Nest
 ------------
