@@ -51,7 +51,7 @@ class reportlabRenderer(base_renderer.baseRenderer):
         p1 = Path(__file__)
         logopath = os.path.join(os.path.dirname(p1),"logo.png")
         flowables.append(__get_image__(logopath, width=6*cm))
-        if importlib.util.find_spec('git'):
+        if False: # importlib.util.find_spec('git'):
             import git
             repo = git.Repo(search_parent_directories=True)
             sha = repo.head.object.hexsha
@@ -71,7 +71,7 @@ class reportlabRenderer(base_renderer.baseRenderer):
                 flowables.append(versionTxt)
             flowables.append(codeVerTxt)
         else:
-            print('gitpython not found')
+            # print('gitpython not found')
             flowables.append(Spacer(3*cm, 3*cm))
             date = str(datetime.date.today())
             dateTxt = Paragraph('Date: ' + date, self.style['Heading2'])
