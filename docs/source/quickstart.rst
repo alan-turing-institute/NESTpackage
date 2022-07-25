@@ -28,10 +28,10 @@ Thus, if the source and destination information is stored in `Col1` and `Col2`,
 with weight information in `Col10` the first row would represents an edge
 between node 9 and node 6 of weight 0.621. 
 
-For reference the full dataset can be found at the following 
-`webpage <DS>`.
+For reference the full dataset can be found on 
+`this
+page <https://raw.githubusercontent.com/alan-turing-institute/NESTpackage/main/docs/data/exampleData.csv>`__.
 
-.. _DS: https://raw.githubusercontent.com/alan-turing-institute/NESTpackage/main/docs/data/exampleData.csv 
 
 Running Nest
 ------------
