@@ -17,14 +17,12 @@ The `nest` package assumes that your data is in a standard csv format where
 each row represents a single edge with attributes. For example, here is the
 first few lines of an example dataset: 
 
-```
-Col1,Col2,Col3,Col4,Col5,Col6,Col7,Col8,Col9,Col10,time
-9,6,3,6,2,7,2,3,1,0.621414985445744,2000-01-14
-5,9,3,10,3,1,10,10,4,0.5998827544069725,2000-02-10
-1,0,10,8,1,7,2,2,6,0.48768217626404864,2000-01-20
-5,5,9,3,2,8,6,7,4,0.06281386892763785,2000-02-12
-1,3,1,8,2,3,3,4,5,0.7001516115392037,2000-01-21
-```
+   Col1,Col2,Col3,Col4,Col5,Col6,Col7,Col8,Col9,Col10,time
+   9,6,3,6,2,7,2,3,1,0.621414985445744,2000-01-14
+   5,9,3,10,3,1,10,10,4,0.5998827544069725,2000-02-10
+   1,0,10,8,1,7,2,2,6,0.48768217626404864,2000-01-20
+   5,5,9,3,2,8,6,7,4,0.06281386892763785,2000-02-12
+   1,3,1,8,2,3,3,4,5,0.7001516115392037,2000-01-21
 
 Thus, if the source and destination information is stored in `Col1` and `Col2`,
 with weight information in `Col10` the first row would represents an edge
@@ -44,7 +42,10 @@ From a `csv` file running `nest` is as simple as running:
    nest --data_file exampleData.csv 
 
 Running this would then produce a PDF summarising your network using every
-statistic in Nest. Note for large graphs this may take a long time. 
+statistic in Nest. 
+** It will also produce a csv file summarising all of the statistics 
+to make it easier to use.**
+Note for large graphs this may take a long time. 
 
 This will run the full nest report but it needs to make some assumptions:  
 
