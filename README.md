@@ -90,6 +90,8 @@ Optons:
 | --data_file   | Csv file path                      |
 | --src         | Source Columns separated by commas |
 | --dst         | Dest Columns separated by commas   |
+| --directed    | Data is directed (Default)         |
+| --no-directed | Data is undirected (Not Default)   |
 | --weight      | Weight Column                      |
 | --time        | Time Column                        |
 | --output_file | Output file                        |
