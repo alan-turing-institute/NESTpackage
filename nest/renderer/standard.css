@@ -1,7 +1,8 @@
 
 /* 
- * This document is constructed using elements of the pandoc standard css
- * file and an example from the w3schools
+ * This document is constructed using elements of the pandoc
+ * standard css file (https://pandoc.org/demos.html) 
+ * and an example from the w3schools
  * minor edits have been made for our usecase
  * */
 
@@ -115,7 +116,7 @@ display: block;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-        .sidenav a {font-size: 18px;}
-    }
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
