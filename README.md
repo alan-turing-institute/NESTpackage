@@ -113,4 +113,9 @@ Specify columns that make up the destination. The combination of columns are use
 ```bash
 nest --dst F,G 
 ```
-  
+ 
+Putting this all together, with a specification of the time column we could get the following command:
+
+```bash
+nest --data_file exampleData.csv --src Col1,Col2 --dst Col3,Col4 --time time
+```

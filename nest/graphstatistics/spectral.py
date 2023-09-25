@@ -49,7 +49,7 @@ class Adj_LCC_Top_Svd(baseWithHistPlot):
             G = G1.subgraph(max(nx.connected_components(G1), key=len))
         else:
             G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
-        A = nx.to_scipy_sparse_matrix(G,dtype=np.float)
+        A = nx.to_scipy_sparse_matrix(G,dtype=np.float64)
         if A.shape[0]<15:
             data = linalg.svd(A.todense(),compute_uv=False)
             data = sorted(data,key=lambda x:abs(x))
@@ -129,7 +129,7 @@ class Adj_LCC_Top_Svd_NoWeight(baseWithHistPlot):
             G = G1.subgraph(max(nx.connected_components(G1), key=len))
         else:
             G = G1.subgraph(max(nx.weakly_connected_components(G1), key=len))
-        A = nx.to_scipy_sparse_matrix(G,dtype=np.float,weight=None)
+        A = nx.to_scipy_sparse_matrix(G,dtype=np.float64,weight=None)
         if A.shape[0]<15:
             data = linalg.svd(A.todense(),compute_uv=False)
             data = sorted(data,key=lambda x:abs(x))

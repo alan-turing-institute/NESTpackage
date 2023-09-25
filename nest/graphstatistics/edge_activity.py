@@ -105,7 +105,7 @@ class Inter_arrival_times(baseTimeSeriesStats):
         return plots
 
 
-class Transaction_cascading_behaviour_over_3_days(baseTimeSeriesStats):
+class Cascading_behaviour_over_3_days(baseTimeSeriesStats):
     def __init__(self, Gs, optionsDict):
         ts = []
         plotdata = []
